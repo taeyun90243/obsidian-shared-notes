@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>이게 나의 깃허브 페이지입니다.</title>
-<meta name="description" content="이게 나의 깃허브 페이지입니다.">
+<meta name="description" content="헤헤 옵시디언 순정 느낌이 좋네요">
 <link rel="canonical" href="https://taeyun90243.github.io/obsidian-shared-notes/notes/ii9hozfn.html">
 <meta property="og:url" content="https://taeyun90243.github.io/obsidian-shared-notes/notes/ii9hozfn.html">
 
@@ -14,7 +14,7 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="CMDSPACE">
 <meta property="og:title" content="이게 나의 깃허브 페이지입니다.">
-<meta property="og:description" content="이게 나의 깃허브 페이지입니다.">
+<meta property="og:description" content="헤헤 옵시디언 순정 느낌이 좋네요">
 <meta property="og:image" content="https://share.cmdspace.work/assets/og/og-share.png">
 <meta property="og:image:secure_url" content="https://share.cmdspace.work/assets/og/og-share.png">
 <meta property="og:image:type" content="image/png">
@@ -26,7 +26,7 @@
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="이게 나의 깃허브 페이지입니다.">
-<meta name="twitter:description" content="이게 나의 깃허브 페이지입니다.">
+<meta name="twitter:description" content="헤헤 옵시디언 순정 느낌이 좋네요">
 <meta name="twitter:image" content="https://share.cmdspace.work/assets/og/og-share.png">
 
 <script>
@@ -370,87 +370,22 @@ main {
 <div class="graph-legend"><span class="lg-link">Notes</span><span class="lg-tag">Tags</span></div></aside>
 
 <main>
-	<article id="note-content" class="markdown-rendered"><p class="cmds-loading">Decrypting…</p></article>
+	<article id="note-content" class="markdown-rendered"><h1 data-heading="obsidian publish" dir="auto">obsidian publish</h1>
+<p dir="auto">헤헤 옵시디언 순정 느낌이 좋네요</p>
+<h2 data-heading="이거 목차도 볼 수 있데요" dir="auto">이거 목차도 볼 수 있데요</h2></article>
 </main>
 
 <footer class="cmds-meta">
-	<div class="cmds-badges"><span class="cmds-badge b-e2e"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>종단간 암호화</span></div>
+	
 	<a href="https://cmdspace.work" target="_blank" rel="noopener"><img src="https://cmdspace.work/assets/logos/cmds-logo-round.png" alt="CMDSPACE"></a>
 	<span>Shared via <a href="https://github.com/johnfkoo951/cmds-share" target="_blank" rel="noopener">CMDS Share</a></span>
 	<span class="cmds-theme-note">Theme: CMDS</span>
 	
 </footer>
 
-<script type="application/json" id="encrypted-data">{"ciphertext":["XEGrnvIqqjP88SC/urYZbbDAK/f+iC8Suk+oRCZXQR6z6HVPjxfhV3ftiCzCzME8EpVwHyN6FeJxtwx9WfmtRMXrmzHQ9lRStqMpDMUuKsCOn1ssL3vq3lH1AvlYAzrYGsBwxzgsO+/wsz9VaiN/YOn7yTiX7CDz+vzELuTdQpMJ6o/OOndZkPXF8EzR7gxam7QxuUzS1JFcr5g+Oqq22Hlmb74DQra6Z5c42fhpuylIOeUI6jdvACSSk+4qB6TUgMtqobN1bi0kqco8M9Fqs3ztQvc="]}</script>
 
 
-
-<script>
-(async function() {
-	function base64ToBytes(b64) {
-		const bin = atob(b64); const bytes = new Uint8Array(bin.length);
-		for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-		return bytes;
-	}
-	// The key travels URL-fragment-safe (base64url, no padding) — restore standard base64
-	function keyToBytes(key) {
-		let b64 = key.replace(/-/g, '+').replace(/_/g, '/');
-		while (b64.length % 4) b64 += '=';
-		return base64ToBytes(b64);
-	}
-	function indexToIv(i) {
-		const iv = new Uint8Array(12);
-		new DataView(iv.buffer).setUint32(0, i, true);
-		return iv;
-	}
-	try {
-		const key = window.location.hash.slice(1);
-		if (!key) throw new Error('No decryption key in URL');
-		const dataEl = document.getElementById('encrypted-data');
-		if (!dataEl) throw new Error('No encrypted payload');
-
-		const payload = JSON.parse(dataEl.textContent);
-		const aesKey = await crypto.subtle.importKey('raw', keyToBytes(key), { name: 'AES-GCM' }, false, ['decrypt']);
-
-		// chunks are byte slices of one UTF-8 stream: concatenate bytes FIRST, decode once
-		const parts = [];
-		let total = 0;
-		for (let i = 0; i < payload.ciphertext.length; i++) {
-			const chunk = base64ToBytes(payload.ciphertext[i]);
-			const decrypted = new Uint8Array(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: indexToIv(i) }, aesKey, chunk));
-			parts.push(decrypted);
-			total += decrypted.length;
-		}
-		const all = new Uint8Array(total);
-		let offset = 0;
-		for (const part of parts) { all.set(part, offset); offset += part.length; }
-
-		const data = JSON.parse(new TextDecoder().decode(all));
-		const target = document.getElementById('note-content');
-		target.innerHTML = data.content;
-		if (data.title) document.title = data.title;
-		if (data.markdown != null) window.__cmdsMd = data.markdown;
-		// flag + event: later scripts may execute AFTER decryption already
-		// finished (tiny payloads decrypt within microtask checkpoints), so
-		// waiters must check the flag before subscribing
-		window.__cmdsReady = true;
-		document.dispatchEvent(new Event('cmds-content-ready'));
-	} catch (err) {
-		console.error('Decryption failed:', err);
-		const target = document.getElementById('note-content');
-		const ko = document.documentElement.lang === 'ko';
-		const noKey = !window.location.hash.slice(1);
-		const msg = noKey
-			? (ko
-				? '이 노트는 종단간 암호화되어 있습니다. 주소 뒤 <code>#키</code>까지 포함된 전체 링크로 열어야 내용이 보입니다. 서버에는 키가 없어 대시보드 링크로는 열 수 없습니다.'
-				: 'This note is end-to-end encrypted. Open the complete link including the <code>#key</code> fragment — the server never has the key, so dashboard links cannot open it.')
-			: (ko
-				? '복호화에 실패했습니다. 링크의 <code>#키</code>가 정확한지 확인하세요. 노트를 다시 공유하면 키가 바뀌므로 이전 링크는 더 이상 열리지 않습니다.'
-				: 'Failed to decrypt. Check the <code>#key</code> in the link — re-sharing a note rotates the key, so older links stop working.');
-		if (target) target.innerHTML = '<div class="decrypt-error">' + msg + '</div>';
-	}
-})();
-</script>
+<script type="text/plain" id="md-source">IyBvYnNpZGlhbiBwdWJsaXNoCgrtl6Ttl6Qg7Ji17Iuc65SU7Ja4IOyInOyglSDripDrgozsnbQg7KKL64Sk7JqUCgojIyDsnbTqsbAg66qp7LCo64+EIOuzvCDsiJgg7J6I642w7JqUCgo=</script>
 
 
 <script type="module">
